@@ -99,7 +99,7 @@ def api_callback():
 
         # Use the config option from the payload
         # If this is not present in the payload, use the default config
-        driver = cls(**(payload["config"] if "config" in payload else config))
+        driver = cls(**(payload["config"] if "config" in payload else config[payload["driver"]][payload["provider"]]))
 
         try:
             # Get the attribute/method from the driver by name
