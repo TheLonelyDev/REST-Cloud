@@ -1,0 +1,9 @@
+{
+  "storage": {
+    "S3": {
+        "key": "key",
+    	"secret": "secret",
+    	"token": "token"
+    }
+  }
+}
