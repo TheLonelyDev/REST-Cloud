@@ -9,3 +9,5 @@ for arg in inspect.getfullargspec(cls.create_container).args:
     if arg != "self":
         print(arg)
 
+
+print([arg for arg in inspect.getfullargspec(cls.create_container).args if arg != "self"])
