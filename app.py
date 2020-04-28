@@ -1,6 +1,7 @@
-from flask import Flask, request
-from flask_restplus import Resource, Api
+import libcloud.security
+from flask import Flask
 from flask_restful_swagger import swagger
+from flask_restplus import Api
 
 app = Flask(__name__)
 api = swagger.docs(Api(app), apiVersion='0.0.1',
@@ -9,6 +10,5 @@ api = swagger.docs(Api(app), apiVersion='0.0.1',
                    api_spec_url='/api/spec',
                    description='REST Cloud API')
 app.run(debug=True)
-import libcloud.security
 
 libcloud.security.VERIFY_SSL_CERT = False
