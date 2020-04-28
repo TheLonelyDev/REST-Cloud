@@ -1,4 +1,11 @@
-def _get_args_dict(fn, args, kwargs):
-    args_names = fn.__code__.co_varnames[:fn.__code__.co_argcount]
-    return {**dict(zip(args_names, args)), **kwargs}
+from libcloud.storage.types import Provider
+from libcloud.storage.providers import get_driver
+
+cls = get_driver(Provider.S3)
+
+import inspect
+
+for arg in inspect.getfullargspec(cls.create_container).args:
+    if arg != "self":
+        print(arg)
 
