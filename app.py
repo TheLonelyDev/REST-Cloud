@@ -1,8 +1,10 @@
+import inspect
+import libcloud
+
 import libcloud.security
 from flask import Flask
 from flask_restful_swagger import swagger
 from flask_restplus import Api
-import inspect, libcloud
 
 # Create Flask app
 app = Flask(__name__)
@@ -17,6 +19,7 @@ app.run(debug=True)
 
 # Set SSL verification to off
 libcloud.security.VERIFY_SSL_CERT = False
+
 
 # Spec builder
 def build_specs():
