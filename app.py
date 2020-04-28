@@ -90,6 +90,10 @@ def api_callback():
 
         # Get the driver based on the provider
         cls = mdl.providers.get_driver(getattr(mdl.types.Provider, payload["provider"]))
+
+        # Use the config option from the payload
+        # If this is not present in the payload, use the default config
+        driver = cls(**(payload["config"] if "config" in payload else config))
     except Exception as e:
         # We got an error
         # Return the error type
