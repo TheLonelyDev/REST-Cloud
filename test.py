@@ -31,6 +31,16 @@ for providerBase in inspect.getmembers(libcloud, inspect.ismodule):
                         # Set the current method to the method name (first entry of tupple)
                         method = method[0]
 
+                        # Check if the found member is private or not (prefixed with _)
+                        if method[:1] != "_":
+                            # Create dictionary with info/data
+                            spec = {
+                                "method": method,
+                                "driver": providerBase[0],
+                                "provider": provider,
+                                "data": {},
+                            }
+
                 except:
                     pass
     except:
