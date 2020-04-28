@@ -84,6 +84,12 @@ def api_callback():
     try:
         # Read JSON object as a dictionary
         payload = request.json
+
+        # Try to import the found module
+        mdl = __import__("libcloud.%s" % payload["driver"], fromlist=["libcloud"])
+
+        # Get the driver based on the provider
+        cls = mdl.providers.get_driver(getattr(mdl.types.Provider, payload["provider"]))
     except Exception as e:
         # We got an error
         # Return the error type
