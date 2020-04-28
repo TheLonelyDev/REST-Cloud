@@ -25,6 +25,12 @@ for providerBase in inspect.getmembers(libcloud, inspect.ismodule):
                 try:
                     # Get the driver
                     cls = mdl.providers.get_driver(getattr(mdl.types.Provider, provider))
+
+                    # List all methods
+                    for method in inspect.getmembers(cls, inspect.isfunction):
+                        # Set the current method to the method name (first entry of tupple)
+                        method = method[0]
+
                 except:
                     pass
     except:
