@@ -6,6 +6,15 @@ from flask import Flask, request
 from flask_restful_swagger import swagger
 from flask_restplus import Api
 
+import json
+
+
+# Config loader
+config = {}
+with open('./config.json') as file:
+  config = json.load(file)
+
+
 # Create Flask app
 app = Flask(__name__)
 api = swagger.docs(Api(app), apiVersion='0.0.1',
