@@ -94,6 +94,18 @@ def api_callback():
         # Use the config option from the payload
         # If this is not present in the payload, use the default config
         driver = cls(**(payload["config"] if "config" in payload else config))
+
+        try:
+            # Get the attribute/method from the driver by name
+            # Invoke the method with the data from the payload
+            # Finally return the representation of the object
+            return getattr(driver, payload["method"])(**payload["data"]).__repr__(), 200, {
+                'Access-Control-Allow-Origin': '*'}
+        except Exception as e:
+            # We got an error
+            # Return the error type
+            # Set the HTTP status code as 400
+            return type(e).__name__, 400, {'Access-Control-Allow-Origin': '*'}
     except Exception as e:
         # We got an error
         # Return the error type
