@@ -77,3 +77,14 @@ def build_specs():
             pass
 
     return specs
+
+@app.route('/api', methods=['POST'])
+def api_callback():
+    try:
+        # Read JSON object as a dictionary
+        payload = request.json
+    except Exception as e:
+        # We got an error
+        # Return the error type
+        # Set the HTTP status code as 400
+        return type(e).__name__, 400, {'Access-Control-Allow-Origin': '*'}
