@@ -1,8 +1,8 @@
 import inspect
-import libcloud
 
+import libcloud
 import libcloud.security
-from flask import Flask
+from flask import Flask, request
 from flask_restful_swagger import swagger
 from flask_restplus import Api
 
@@ -77,6 +77,7 @@ def build_specs():
             pass
 
     return specs
+
 
 @app.route('/api', methods=['POST'])
 def api_callback():
