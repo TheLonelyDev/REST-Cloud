@@ -30,6 +30,7 @@ libcloud.security.VERIFY_SSL_CERT = False
 # Spec builder
 def build_specs():
     specs = []
+    sorted_specs = {}
 
     # Get all module members of libcloud with inspect
     for providerBase in inspect.getmembers(libcloud, inspect.ismodule):
@@ -47,6 +48,8 @@ def build_specs():
             # Then this means that we are dealing with a module that is not a provider
             # = skip
 
+            sorted_specs[providerBase[0]] = []
+
             # Iterate over all the providers
             for provider in mdl.types.Provider.__dict__:
                 # Check if the found member is private or not (prefixed with _)
@@ -54,6 +57,7 @@ def build_specs():
                     try:
                         # Get the driver
                         cls = mdl.providers.get_driver(getattr(mdl.types.Provider, provider))
+                        sorted_specs[providerBase[0]][provider] = []
 
                         # List all methods
                         for method in inspect.getmembers(cls, inspect.isfunction):
@@ -77,12 +81,13 @@ def build_specs():
 
                                 # Add to the specs
                                 specs.append(spec)
+                                sorted_specs[providerBase[0]][provider].append(spec)
                     except:
                         pass
         except:
             pass
 
-    return specs
+    return specs, sorted_specs
 
 
 @app.route('/api', methods=['POST'])
