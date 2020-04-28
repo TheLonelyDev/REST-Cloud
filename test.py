@@ -18,6 +18,15 @@ for providerBase in inspect.getmembers(libcloud, inspect.ismodule):
         # Then this means that we are dealing with a module that is not a provider
         # = skip
 
+        # Iterate over all the providers
+        for provider in mdl.types.Provider.__dict__:
+            # Check if the found member is private or not (prefixed with _)
+            if provider[:1] != "_":
+                try:
+                    # Get the driver
+                    cls = mdl.providers.get_driver(getattr(mdl.types.Provider, provider))
+                except:
+                    pass
     except:
         pass
 
