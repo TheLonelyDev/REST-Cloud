@@ -41,6 +41,12 @@ for providerBase in inspect.getmembers(libcloud, inspect.ismodule):
                                 "data": {},
                             }
 
+                            # Iterate over all the function parameter names and give them a blank value
+                            for dataParam in [arg for arg in inspect.getfullargspec(getattr(cls, method)).args if arg != "self"]:
+                                spec["data"][dataParam] = ""
+
+                            # Add to the specs
+                            specs.append(spec)
                 except:
                     pass
     except:
